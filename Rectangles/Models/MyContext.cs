@@ -1,13 +1,16 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Rectangles.Models
 {
-    using Microsoft.EntityFrameworkCore;
     public class MyContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost\TEST;Initial Catalog=test;User Id=sa;Password=test;TrustServerCertificate=true");
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+            var dbConnectionString = config["ConnectionString:WebApiDatabase"];
+
+            optionsBuilder.UseSqlServer(dbConnectionString);
         }
 
 
