@@ -1,2 +1,4 @@
 
 .vs*
+Rectangles\bin\*
+*\obj\*

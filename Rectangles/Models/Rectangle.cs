@@ -17,14 +17,14 @@ namespace Rectangles.Models
         }
     }
 
-    public class  Point
+    public class Point
     {
         [Key]
         public int Id { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 
-        public  Point(int x,int y)
+        public Point(int x, int y)
         {
             X = x;
             Y = y;
@@ -37,26 +37,23 @@ namespace Rectangles.Models
         {
             using (var context = new MyContext())
             {
-               var rectangleCnt= context.Rectangle.Count();
+                var rectangleCnt = context.Rectangle.Count();
 
-                if (rectangleCnt < 200)
+                for (int i = rectangleCnt; i < Utils.Constant.MaxRectangles; i++)
                 {
-                    for (int i = rectangleCnt; i < 200; i++)
-                    {
-                        var point1 = CreateOrGetPoint(context);
-                        var point2 = CreateOrGetPoint(context);
+                    var point1 = CreateOrGetPoint(context);
+                    var point2 = CreateOrGetPoint(context);
 
-                        var sameRectangle = context.Rectangle.Where(rectangle => rectangle.Point1 == point1 && rectangle.Point2 == point2).ToList();
-                        Rectangle rectangle = new Rectangle(point1, point2);
+                    var sameRectangle = context.Rectangle.Where(rectangle => rectangle.Point1 == point1 && rectangle.Point2 == point2).ToList();
+                    Rectangle rectangle = new Rectangle(point1, point2);
 
-                        context.Rectangle.Add(rectangle);
-                        context.SaveChanges();
-                    }
+                    context.Rectangle.Add(rectangle);
+                    context.SaveChanges();
                 }
             }
         }
 
-        public int CreateOrGetPoint(MyContext context )
+        public int CreateOrGetPoint(MyContext context)
         {
             Random rnd = new Random();
 
