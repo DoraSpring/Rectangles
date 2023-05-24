@@ -2,3 +2,9 @@
 .vs*
 Rectangles\bin\*
 *\obj\*
+Rectangles/bin/Debug/net6.0/*
+Rectangles/bin/Debug/net6.0/Rectangles.pdb
+Rectangles/obj/Debug/net6.0/Rectangles.pdb
+Rectangles/obj/Debug/net6.0/Rectangles.pdb
+Rectangles/obj/Debug/net6.0/ref/Rectangles.dll
+Rectangles/obj/Debug/net6.0/refint/Rectangles.dll
