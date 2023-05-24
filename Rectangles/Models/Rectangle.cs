@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 namespace Rectangles.Models
 {
@@ -6,8 +7,14 @@ namespace Rectangles.Models
     {
         [Key]
         public int Id { get; set; }
-        public int RectanglePointId1 { get; set; }
-        public int RectanglePointId2 { get; set; }
+        public int Point1 { get; set; }
+        public int Point2 { get; set; }
+
+        public Rectangle(int point1, int point2)
+        {
+            Point1 = point1;
+            Point2 = point2;
+        }
     }
 
     public class  Point
@@ -30,34 +37,47 @@ namespace Rectangles.Models
         {
             using (var context = new MyContext())
             {
-                var point = new  Point(1,2);
-
                var rectangleCnt= context.Rectangle.Count();
 
                 if (rectangleCnt < 200)
                 {
-                    Random rnd = new Random();
                     for (int i = rectangleCnt; i < 200; i++)
                     {
-                        int x = rnd.Next();
-                        int y = rnd.Next();
+                        var point1 = CreateOrGetPoint(context);
+                        var point2 = CreateOrGetPoint(context);
 
-                        var samePoints = context.Point.Where(point => point.X == x && point.Y == y).ToList();
+                        var sameRectangle = context.Rectangle.Where(rectangle => rectangle.Point1 == point1 && rectangle.Point2 == point2).ToList();
+                        Rectangle rectangle = new Rectangle(point1, point2);
 
-                        var pointId = 0;
-                        if (samePoints.Count > 0)
-                        {
-                            pointId = samePoints.FirstOrDefault().Id;
-                        }
-                        else
-                        {
-                            context.Point.Add(point);
-                            context.SaveChanges();
-                        }
-
+                        context.Rectangle.Add(rectangle);
+                        context.SaveChanges();
                     }
                 }
             }
+        }
+
+        public int CreateOrGetPoint(MyContext context )
+        {
+            Random rnd = new Random();
+
+            var newPoint = new Point(rnd.Next(), rnd.Next());
+
+            var samePoints = context.Point.Where(point => point.X == newPoint.X && point.Y == newPoint.Y).ToList();
+
+            var point = 0;
+            if (samePoints.Count > 0)
+            {
+                point = samePoints.First().Id;
+            }
+            else
+            {
+                context.Point.Add(newPoint);
+                context.SaveChanges();
+
+                point = newPoint.Id;
+            }
+
+            return point;
         }
     }
 }
