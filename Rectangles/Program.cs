@@ -1,3 +1,5 @@
+using Rectangles.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +19,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+RectangleAdmin rectangleAdmin = new RectangleAdmin();
+rectangleAdmin.TestDbConnection();
 
 app.MapControllers();
 
