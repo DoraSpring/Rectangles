@@ -17,10 +17,19 @@ namespace Rectangles.Controllers
         }
 
         [HttpGet(Name = "GetRectangles")]
-        public Services.RectanglesContainingPoint[] Get([FromBody] Point[] points)
+        public IEnumerable<RectangleOut> Get([FromBody] Services.UserPoint[] points)
         {
-            var rectangles = Services.RectangleService.GetRectanglesContainingPoints(points);
-            return rectangles;
+            var rectangles = Services.RectangleService.GetRectanglesContainingPoints(points).ToArray();
+
+
+            var rectanglesOut = rectangles.Select(rectangle => new RectangleOut
+            {
+                Point = rectangle.Point,
+                Rectangles = rectangle.Rectangles
+            })
+            .ToArray();
+
+            return rectanglesOut;
         }
     }
 }

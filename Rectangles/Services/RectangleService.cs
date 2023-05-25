@@ -6,7 +6,7 @@ namespace Rectangles.Services
 {
     public class RectangleService
     {
-        public static RectanglesContainingPoint[] GetRectanglesContainingPoints(Point[] points)
+        public static RectanglesContainingPoint[] GetRectanglesContainingPoints(UserPoint[] points)
         {
             RectanglesContainingPoint[] rectanglesContainingPoints = new RectanglesContainingPoint[points.Length];
 
@@ -32,11 +32,11 @@ namespace Rectangles.Services
             return rectanglesContainingPoints;
         }
 
-        public static bool PointInRectangle(Point point, Models.RectangleDetail rectangleDetail)
+        public static bool PointInRectangle(UserPoint point, Models.RectangleDetail rectangleDetail)
         {
             Rectangle rectangle = new Rectangle(rectangleDetail.X, rectangleDetail.Y, rectangleDetail.Width, rectangleDetail.Height);
 
-            return rectangle.Contains(new Point(point.X,point.Y));
+            return rectangle.Contains(new Point(point.X, point.Y));
         }
     }
 
@@ -48,7 +48,7 @@ namespace Rectangles.Services
 
     public class RectanglesContainingPoint
     {
-        public Point Point;
+        public Services.UserPoint Point { get; set; }
         public List<Models.RectangleDetail> Rectangles;
     }
 }
