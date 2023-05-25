@@ -20,8 +20,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
-RectangleAdmin rectangleAdmin = new RectangleAdmin();
-rectangleAdmin.TestDbConnection();
+RectangleAdmin.CreateRectangles();
 
 app.MapControllers();
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
+
+using System.Drawing;
 
 namespace Rectangles.Controllers
 {
@@ -16,9 +17,10 @@ namespace Rectangles.Controllers
         }
 
         [HttpGet(Name = "GetRectangles")]
-        public IEnumerable<Models.Rectangle> Get()
+        public Services.RectanglesContainingPoint[] Get([FromBody] Point[] points)
         {
-            return null;
+            var rectangles = Services.RectangleService.GetRectanglesContainingPoints(points);
+            return rectangles;
         }
     }
 }

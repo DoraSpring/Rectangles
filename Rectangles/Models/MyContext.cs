@@ -16,6 +16,6 @@ namespace Rectangles.Models
 
         //entities
         public DbSet<Rectangle> Rectangle { get; set; }
-        public DbSet<Point> Point { get; set; }
+        public DbSet<Coordinate> Coordinate { get; set; }
     }
 }
