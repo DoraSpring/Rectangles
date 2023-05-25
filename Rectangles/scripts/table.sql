@@ -9,7 +9,7 @@ create table coordinate
 create table rectangle
 (
     id            int not null identity(1,1) primary key,
-	coordinate_id int not null,
+    coordinate_id int not null,
     width         int not null,
     height        int not null,
     constraint un_rectangle unique(coordinate_id,width,height),
